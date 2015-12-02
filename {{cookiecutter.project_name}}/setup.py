@@ -1,10 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
-import re
+import sys
 from setuptools import setup, find_packages
 
 readme = open('README.md').read()
+
+# See: https://pypi.python.org/pypi/pytest-runner#conditional-requirement
+needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
+pytest_runner = ['pytest-runner'] if needs_pytest else []
 
 setup(
     author='Blue Newt Software',
@@ -25,9 +29,8 @@ setup(
     namespace_packages=['{{ cookiecutter.package_name.split(".")[0] }}' ],
     packages=find_packages(),
     setup_requires=[
-        'pytest-runner',
         'setuptools_scm'
-    ],
+    ] + pytest_runner,
     test_suite='tests',
     tests_require=[
         'coverage',
