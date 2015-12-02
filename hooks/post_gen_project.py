@@ -5,13 +5,13 @@ import os
 import functools
 
 
-libjoin = functools.partial(os.path.join, 'lib')
+libjoin = functools.partial(os.path.join, '.')
 testsjoin = functools.partial(os.path.join, 'tests')
 
 
 def main(argv):
     # find the package
-    for item in os.listdir('lib'):
+    for item in os.listdir('.'):
         if os.path.isfile(libjoin(item, '__init__.py')):
             break
     else:

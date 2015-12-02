@@ -1,10 +1,10 @@
 {
-	"full_name": "Anon Dev",
-	"email": "anon.dev@domain.com",
+	"full_name": "Blue Newt Software",
+	"email": "support@blue-newt.com",
 	"vcs_url": "",
 	"project_name": "Python Boilerplate",
 	"package_name": "boilerplate",
 	"project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
-	"year": "2014",
+	"year": "2015",
 	"version": "0.1.0"
 }
