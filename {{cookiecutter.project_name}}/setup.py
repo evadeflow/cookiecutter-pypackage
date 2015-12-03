@@ -28,7 +28,7 @@ setup(
     namespace_packages=['{{ cookiecutter.package_name.split(".")[0] }}' ],
     packages=find_packages(),
     setup_requires=[
-        'setuptools_scm'
+        'setuptools_scm',
     ] + pytest_runner,
     test_suite='tests',
     tests_require=[
