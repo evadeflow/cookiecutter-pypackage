@@ -23,7 +23,6 @@ setup(
         # TODO: Add requirements here
     ],
     keywords='{{ cookiecutter.package_name }}',
-    license="BSD",
     long_description=readme,
     name='{{ cookiecutter.package_name }}',
     namespace_packages=['{{ cookiecutter.package_name.split(".")[0] }}' ],
