@@ -11,17 +11,11 @@ testsjoin = functools.partial(os.path.join, 'tests')
 
 def main(argv):
     # find the package
-    for item in os.listdir('.'):
-        if os.path.isfile(libjoin(item, '__init__.py')):
-            break
-    else:
-        return 1
+    package_name = "{{ cookiecutter.package_name }}"
 
     # it's not a namespace package, all okay
-    if not '.' in item:
+    if not '.' in package_name:
         return
-
-    package_name = item
 
     # make the hierarchy
     parts = package_name.split('.')
