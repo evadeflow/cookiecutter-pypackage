@@ -35,7 +35,9 @@ setup(
         'coverage',
         'pytest',
     ],
-    url='{{ cookiecutter.vcs_url }}',
-    use_scm_version=True,
+    use_scm_version={
+        'root': '..',
+        'version_scheme': 'post-release',
+    },
     zip_safe=False,
 )
