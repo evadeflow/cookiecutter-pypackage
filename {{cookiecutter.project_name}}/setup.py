@@ -10,6 +10,32 @@ readme = open('README.md').read()
 needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
 pytest_runner = ['pytest-runner'] if needs_pytest else []
 
+# Temp hack to work around the lack of an SCM working copy in our current
+# deploys: just return a hard-coded, dummy value if the lookup via SCM tags
+# would fail.
+dummy_version = '0.1.0'
+def get_use_scm_version_arg():
+
+    def dummy_get_version(scm_path):
+        return dummy_version
+
+    import setuptools_scm
+
+    scm_version_okay = False
+    for scm_path in ('.', '..'):
+        try:
+            setuptools_scm.get_version(scm_path)
+            scm_version_okay = True
+            break
+        except LookupError:
+            pass
+
+    if not scm_version_okay:
+        # Monkey patch the internal setuptools_scm function version_from_scm()
+        setattr(setuptools_scm, 'version_from_scm', dummy_get_version)
+
+    return { 'root': scm_path, 'version_scheme': 'post-release' }
+
 setup(
     author='Blue Newt Software',
     author_email='support@blue-newt.com',
@@ -35,9 +61,7 @@ setup(
         'coverage',
         'pytest',
     ],
-    use_scm_version={
-        'root': '..',
-        'version_scheme': 'post-release',
-    },
+    use_scm_version=get_use_scm_version_arg,
+    version=dummy_version,
     zip_safe=False,
 )
