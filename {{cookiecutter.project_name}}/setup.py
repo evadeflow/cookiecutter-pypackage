@@ -62,7 +62,7 @@ setup(
     keywords='{{ cookiecutter.package_name }}',
     long_description=readme,
     name='{{ cookiecutter.package_name }}',
-    namespace_packages=namespace_packages
+    namespace_packages=namespace_packages,
     packages=find_packages(),
     setup_requires=[
         'setuptools_scm',
