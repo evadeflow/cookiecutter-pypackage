@@ -29,7 +29,7 @@ class GetUseScmVersionArg:
                 setuptools_scm.get_version(scm_path)
                 scm_version_okay = True
                 break
-            except LookupError:
+            except:
                 pass
 
         if not scm_version_okay:
