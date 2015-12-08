@@ -41,6 +41,12 @@ class GetUseScmVersionArg:
     def pop(self, value, retval=None):
         return retval
 
+namespace_packages = (
+    '{{ cookiecutter.package_name.split(".")[0] }}'
+    if '.' in '{{ cookiecutter.package_name }}'
+    else []
+)
+
 setup(
     author='Blue Newt Software',
     author_email='support@blue-newt.com',
@@ -56,7 +62,7 @@ setup(
     keywords='{{ cookiecutter.package_name }}',
     long_description=readme,
     name='{{ cookiecutter.package_name }}',
-    namespace_packages=['{{ cookiecutter.package_name.split(".")[0] }}' ],
+    namespace_packages=namespace_packages
     packages=find_packages(),
     setup_requires=[
         'setuptools_scm',
