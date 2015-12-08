@@ -15,7 +15,7 @@ pytest_runner = ['pytest-runner>=2.0,<3dev'] if needs_pytest else []
 # deploys: just return a hard-coded, dummy value if the lookup via SCM tags
 # would fail.
 dummy_version = '0.1.0'
-class GetUseScmVersionArg():
+class GetUseScmVersionArg:
 
     def dummy_version_from_scm(self, scm_root):
         return dummy_version
