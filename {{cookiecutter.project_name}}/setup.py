@@ -42,7 +42,7 @@ class GetUseScmVersionArg:
         return retval
 
 namespace_packages = (
-    '{{ cookiecutter.package_name.split(".")[0] }}'
+    ['{{ cookiecutter.package_name.split(".")[0] }}']
     if '.' in '{{ cookiecutter.package_name }}'
     else []
 )
