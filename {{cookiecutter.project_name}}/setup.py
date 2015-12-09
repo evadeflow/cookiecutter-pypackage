@@ -14,32 +14,16 @@ pytest_runner = ['pytest-runner>=2.0,<3dev'] if needs_pytest else []
 # Temp hack to work around the lack of an SCM working copy in our current
 # deploys: just return a hard-coded, dummy value if the lookup via SCM tags
 # would fail.
-dummy_version = '0.1.0'
-class GetUseScmVersionArg:
+def _get_version(*args, **kwds):
 
-    def dummy_version_from_scm(self, scm_root):
-        return dummy_version
+    for scm_path in ('.', '..'):
+        try:
+            from setuptools_scm import get_version
+            return get_version(root=scm_path, version_scheme='post-release')
+        except:
+            pass
 
-    def __call__(self, *args, **kwds):
-        import setuptools_scm
-
-        scm_version_okay = False
-        for scm_path in ('.', '..'):
-            try:
-                setuptools_scm.get_version(scm_path)
-                scm_version_okay = True
-                break
-            except:
-                pass
-
-        if not scm_version_okay:
-            # Monkey patch the internal setuptools_scm function version_from_scm()
-            setattr(setuptools_scm, 'version_from_scm', self.dummy_version_from_scm)
-
-        return { 'root': scm_path, 'version_scheme': 'post-release' }
-
-    def pop(self, value, retval=None):
-        return retval
+    return '0.1.0'
 
 namespace_packages = (
     ['{{ cookiecutter.package_name.split(".")[0] }}']
@@ -65,14 +49,13 @@ setup(
     namespace_packages=namespace_packages,
     packages=find_packages(),
     setup_requires=[
-        'setuptools_scm',
+        'setuptools_scm>=1.10.0',
     ] + pytest_runner,
     test_suite='tests',
     tests_require=[
         'coverage',
         'pytest',
     ],
-    use_scm_version=GetUseScmVersionArg(),
-    version=dummy_version,
+    use_scm_version=dict(parse=_get_version),
     zip_safe=False,
 )
