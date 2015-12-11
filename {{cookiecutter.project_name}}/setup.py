@@ -35,8 +35,7 @@ setup(
     author='Blue Newt Software',
     author_email='support@blue-newt.com',
     classifiers=[
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.7',
+        "Private :: Do Not Upload",
     ],
     description='{{ cookiecutter.project_short_description }}',
     include_package_data=True,
